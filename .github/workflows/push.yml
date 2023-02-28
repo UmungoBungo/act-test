@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - nevernevernever
   pull_request:
 name: Install and Test
 
