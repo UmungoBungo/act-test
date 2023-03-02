@@ -34,7 +34,6 @@ jobs:
       - name: Get tag
         id: get-tag
         run: echo "short_ref=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-        # run: echo "short_ref=4.0.1" >> $GITHUB_OUTPUT
 
       - id: docker-push-tagged
         name: Tag Docker image and push to Google Artifact Registry
