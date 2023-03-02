@@ -44,4 +44,4 @@ jobs:
           push: true
           tags: |
             us-docker.pkg.dev/remotion-dev/cloud-run/render:${{ steps.get-tag.outputs.short_ref }}
-            us-docker.pkg.dev/remotion-dev/cloud-run/render:latest/
+            us-docker.pkg.dev/remotion-dev/cloud-run/render:latest
