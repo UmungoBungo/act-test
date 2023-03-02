@@ -34,13 +34,14 @@ jobs:
       - name: Get tag
         id: get-tag
         # run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-        run: echo "short_ref=${GITHUB_REF#refs/*/}" >> $GITHUB_STATE
+        # run: echo "short_ref=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+        run: echo "short_ref=4.0.0" >> $GITHUB_OUTPUT
 
-      # - id: docker-push-tagged
-      #   name: Tag Docker image and push to Google Artifact Registry
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     push: true
-      #     tags: |
-      #       <your-gar-region>-docker.pkg.dev/<your-project-id>/<your-gar-repo-name>/<your-docker-image-name>:${{ steps.get-tag.outputs.short_ref }}
-      #       <your-gar-region>-docker.pkg.dev/<your-project-id>/<your-gar-repo-name>/<your-docker-image-name>:latest
+      - id: docker-push-tagged
+        name: Tag Docker image and push to Google Artifact Registry
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            us-docker.pkg.dev/remotion-dev/cloud-run/render:${{ steps.get-tag.outputs.short_ref }}
+            us-docker.pkg.dev/remotion-dev/cloud-run/render:latest/
