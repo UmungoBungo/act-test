@@ -6,6 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags') # <-- Filtering to only run when a tagged commit is pushed
 
+    permissions:
+      contents: "read"
+      id-token: "write"
+
     steps:
       - id: checkout
         name: Checkout
