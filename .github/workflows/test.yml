@@ -1,11 +1,7 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Deploy GCP artifact
+run-name: Deploy latest release as an artifact in GCP Artifact Registry
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        description: "Remotion Release"
-        required: true
 jobs:
   test:
     runs-on: ubuntu-latest
