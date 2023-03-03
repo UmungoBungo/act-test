@@ -26,9 +26,7 @@ jobs:
           path: "./container/package.json"
           prop_path: "version"
 
-      - run: |
-          echo "Remotion version found: ${{ steps.version.outputs.prop }}"
-          echo "remotion_version=${{steps.version.outputs.prop}}" >> $GITHUB_OUTPUT
+      - run: echo version pulled from package.json":" "${{ steps.version.outputs.prop }}"
 
       - id: auth
         name: Authenticate with Google Cloud
@@ -53,5 +51,5 @@ jobs:
           context: ./container
           push: true
           tags: |
-            us-docker.pkg.dev/remotion-dev/cloud-run/render:${{ steps.get-tag.outputs.remotion_version }}
+            us-docker.pkg.dev/remotion-dev/cloud-run/render:${{ steps.version.outputs.prop }}
             us-docker.pkg.dev/remotion-dev/cloud-run/render:latest
