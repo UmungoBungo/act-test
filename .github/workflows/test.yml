@@ -25,7 +25,8 @@ jobs:
         with:
           path: "./container/package.json"
           prop_path: "version"
-        run: |
+
+      - run: |
           echo "Remotion version found: ${{ steps.version.outputs.prop }}"
           echo "remotion_version=${{steps.version.outputs.prop}}" >> $GITHUB_OUTPUT
 
