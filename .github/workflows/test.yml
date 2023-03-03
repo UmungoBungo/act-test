@@ -19,13 +19,15 @@ jobs:
         name: Checkout
         uses: actions/checkout@main
 
-      - name: get version
+      - name: get remotion version
         id: version
         uses: notiz-dev/github-action-json-property@release
         with:
           path: "./container/package.json"
           prop_path: "version"
-      - run: echo ${{steps.version.outputs.prop}}
+        run: |
+          echo "Remotion version found: ${{ steps.version.outputs.prop }}"
+          echo "remotion_version=${{steps.version.outputs.prop}}" >> $GITHUB_OUTPUT
 
       - id: auth
         name: Authenticate with Google Cloud
@@ -43,10 +45,6 @@ jobs:
           username: oauth2accesstoken
           password: ${{ steps.auth.outputs.access_token }}
 
-      - name: Get tag
-        id: get-tag
-        run: echo "short_ref=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-
       - id: docker-push-tagged
         name: Tag Docker image and push to Google Artifact Registry
         uses: docker/build-push-action@v4
@@ -54,5 +52,5 @@ jobs:
           context: ./container
           push: true
           tags: |
-            us-docker.pkg.dev/remotion-dev/cloud-run/render:${{ github.event.inputs.name }}
+            us-docker.pkg.dev/remotion-dev/cloud-run/render:${{ steps.get-tag.outputs.remotion_version }}
             us-docker.pkg.dev/remotion-dev/cloud-run/render:latest
